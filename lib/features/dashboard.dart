@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker_app/features/food.dart';
+import 'package:health_tracker_app/features/sleep_monitoring.dart';
 import 'package:health_tracker_app/features/steps.dart';
+import 'package:health_tracker_app/features/water.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -31,18 +34,30 @@ class _DashboardState extends State<Dashboard> {
             ElevatedButton(
               onPressed: () {
                 // Navigate to calorie counting feature
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Food()),
+                );
               },
-              child: Text('Calorie Counting'),
+              child: Text('Food Monitoring'),
             ),
             ElevatedButton(
               onPressed: () {
                 // Navigate to sleep monitoring feature
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SleepMonitoring()),
+                );
               },
               child: Text('Sleep Monitoring'),
             ),
             ElevatedButton(
               onPressed: () {
                 // Navigate to hydration reminders feature
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Water()),
+                );
               },
               child: Text('Hydration Reminders'),
             ),
