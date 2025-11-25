@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker_app/features/food.dart';
+import 'package:health_tracker_app/features/insights.dart';
+import 'package:health_tracker_app/features/profile.dart';
+import 'package:health_tracker_app/features/reminders.dart';
+import 'package:health_tracker_app/features/settings.dart';
 import 'package:health_tracker_app/features/sleep_monitoring.dart';
 import 'package:health_tracker_app/features/steps.dart';
 import 'package:health_tracker_app/features/water.dart';
+import 'package:health_tracker_app/features/weight.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -60,6 +65,48 @@ class _DashboardState extends State<Dashboard> {
                 );
               },
               child: Text('Hydration Reminders'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Additional Weight button
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const weight()),
+                );
+              },
+              child: Text('Additional Weight'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Additional button for insight feature
+                Navigator.push(context,
+                 MaterialPageRoute(builder: (_) => const insights()));
+              },
+              child: Text('Future Feature'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Placeholder for reminders feature
+                Navigator.push(context,
+                 MaterialPageRoute(builder: (_) => const reminders()));
+              },
+              child: Text('Future Feature'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Placeholder for goals feature
+                Navigator.push(context,
+                 MaterialPageRoute(builder: (_) => const settings()));
+              },
+              child: Text('Future Feature'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Placeholder for settings feature
+                Navigator.push(context,
+                 MaterialPageRoute(builder: (_) => const profile()));
+              },
+              child: Text('Settings'),
             ),
           ],
         ),

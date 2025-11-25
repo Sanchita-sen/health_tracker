@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:health_tracker_app/features/dashboard.dart';
-import 'package:health_tracker_app/signup.dart';
+import 'package:health_tracker_app/auth/signup.dart';
 
 class login extends StatefulWidget {
   const login({super.key});

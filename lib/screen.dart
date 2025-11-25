@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:health_tracker_app/login.dart';
+import 'package:health_tracker_app/auth/login.dart';
 
 class screen extends StatefulWidget {
   @override
