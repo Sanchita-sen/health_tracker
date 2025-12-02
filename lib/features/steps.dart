@@ -123,8 +123,8 @@ class StepsChart extends StatelessWidget {
                   const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
                   final text = (idx >= 0 && idx < labels.length) ? labels[idx] : '';
                   return SideTitleWidget(
+                    axisSide: meta.axisSide,
                     child: Text(text, style: TextStyle(fontSize: 12)),
-                    meta: meta,
                   );
                 },
               ),

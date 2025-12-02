@@ -21,10 +21,10 @@ class _DashboardState extends State<Dashboard> {
       // Your dashboard UI here
       child: Center(
         child: GridView.count(
-          padding: EdgeInsets.all(16.0),
-          crossAxisCount: 2,
-          crossAxisSpacing: 16.0,
-          mainAxisSpacing: 16.0,
+          padding: EdgeInsets.all(12.0),
+          crossAxisCount: 1,
+          crossAxisSpacing: 12.0,
+          mainAxisSpacing: 12.0,
           children: [
             ElevatedButton(
               onPressed: () {

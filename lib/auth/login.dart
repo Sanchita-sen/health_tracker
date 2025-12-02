@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:health_tracker_app/features/dashboard.dart';
 import 'package:health_tracker_app/auth/signup.dart';
+import 'package:health_tracker_app/services/userServices.dart' show UserService;
+import 'package:health_tracker_app/services/local_storage.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -13,6 +14,7 @@ class _loginState extends State<login> {
   
  final usernameController = TextEditingController();
  final passwordController = TextEditingController();
+  final _userService = UserService();
   @override
   Widget build(BuildContext context) {
     
@@ -42,14 +44,34 @@ class _loginState extends State<login> {
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                   Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (_) => Scaffold(
-                      appBar: AppBar(title: Text('Dashboard')),
-                      body: Center(child: Text('Dashboard')),
-                    )),
-                  );
+                onPressed: () async {
+                  final username = usernameController.text.trim();
+                  final password = passwordController.text;
+
+                  if (username.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please enter username and password')),
+                    );
+                    return;
+                  }
+
+                  final user = await _userService.getUserByUsername(username);
+                  if (user != null && user['password'] == password) {
+                    // Save username locally (for now using SharedPreferences)
+                    await LocalStorage.saveUser(username);
+                    // Navigate to the Dashboard placeholder
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => Scaffold(
+                        appBar: AppBar(title: Text('Dashboard')),
+                        body: Center(child: Text('Welcome, $username')),
+                      )),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Invalid credentials')),
+                    );
+                  }
                 },
                 child: Text('Login'),
               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker_app/features/dashboard.dart';
 import 'package:health_tracker_app/services/userServices.dart' show UserService;
+import 'package:health_tracker_app/services/local_storage.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -24,10 +26,19 @@ class _signupPageState extends State<SignupPage> {
       // Simulate a signup process
      await userService.createUser(username, password, email);
 
-      // Navigate to another page or show success message
+      // Save user info locally
+      await LocalStorage.saveUser(username, email: email);
+
+      // Navigate to dashboard after signup
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => Dashboard()),
+      );
     } else {
       // Show error message
-      print('Please fill all fields');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please fill all fields')),
+      );
     }
   }
 
@@ -68,10 +79,10 @@ class _signupPageState extends State<SignupPage> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    // Handle signup logic here
-                    signup();
-                  },
+                  onPressed: () async {
+                      // Handle signup logic here
+                      await signup();
+                    },
                   child: Text('Signup'),
                 ),
               ],
