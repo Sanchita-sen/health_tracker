@@ -21,10 +21,10 @@ class _DashboardState extends State<Dashboard> {
       // Your dashboard UI here
       child: Center(
         child: GridView.count(
-          padding: EdgeInsets.all(12.0),
-          crossAxisCount: 1,
-          crossAxisSpacing: 12.0,
-          mainAxisSpacing: 12.0,
+          padding: EdgeInsets.all(16.0),
+          crossAxisCount: 3,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
           children: [
             ElevatedButton(
               onPressed: () {
@@ -82,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
                 Navigator.push(context,
                  MaterialPageRoute(builder: (_) => const insights()));
               },
-              child: Text('Future Feature'),
+              child: Text('Insights Feature'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -90,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
                 Navigator.push(context,
                  MaterialPageRoute(builder: (_) => const reminders()));
               },
-              child: Text('Future Feature'),
+              child: Text('Reminders Feature'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -98,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
                 Navigator.push(context,
                  MaterialPageRoute(builder: (_) => const settings()));
               },
-              child: Text('Future Feature'),
+              child: Text('Settings Feature'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -106,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
                 Navigator.push(context,
                  MaterialPageRoute(builder: (_) => const profile()));
               },
-              child: Text('Settings'),
+              child: Text('Profile Feature'),
             ),
           ],
         ),

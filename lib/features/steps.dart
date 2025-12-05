@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:health_tracker_app/services/steps_database.dart';
+import 'package:health_tracker_app/models/step_entry.dart';
 
 class steps extends StatefulWidget {
   const steps({Key? key}) : super(key: key);
@@ -11,23 +13,45 @@ class steps extends StatefulWidget {
 class _stepsState extends State<steps> {
   int _stepCount = 0;
 
-  // Sample history for the last 7 days (can be replaced by real data)
-  final List<int> _stepHistory = [3200, 4500, 5000, 6200, 7000, 8100, 0];
-
-  void _incrementSteps() {
-    setState(() {
-      _stepCount += 1000; // Simulate step increment
-      // Update history: push new value and drop the oldest
-      _stepHistory.removeAt(0);
-      _stepHistory.add(_stepCount);
-    });
-  }
+  // History for the last 7 days (loaded from DB)
+  List<int> _stepHistory = List.filled(7, 0);
 
   @override
   void initState() {
     super.initState();
-    // Initialize last entry with current step count
-    _stepHistory[_stepHistory.length - 1] = _stepCount;
+    _loadHistory();
+  }
+
+  Future<void> _loadHistory() async {
+    final entries = await StepsDatabase.instance.getLastNDays(7);
+    setState(() {
+      _stepHistory = entries.map((e) => e.steps).toList();
+      // Set today's step count to the last element
+      _stepCount = _stepHistory.isNotEmpty ? _stepHistory.last : 0;
+    });
+  }
+
+  void _incrementSteps() async {
+    setState(() {
+      _stepCount += 1000; // Simulate step increment
+    });
+
+    // Update history and DB: write today's entry
+    final today = DateTime.now();
+    final entry = StepEntry(
+      day: DateTime(today.year, today.month, today.day),
+      steps: _stepCount,
+      calories: (_stepCount * 0.04), // simple estimate
+      goal: 10000, // default goal; adjust as needed
+    );
+
+    await StepsDatabase.instance.insertOrUpdate(entry);
+
+    // Refresh history displayed
+    final entries = await StepsDatabase.instance.getLastNDays(7);
+    setState(() {
+      _stepHistory = entries.map((e) => e.steps).toList();
+    });
   }
 
   @override
